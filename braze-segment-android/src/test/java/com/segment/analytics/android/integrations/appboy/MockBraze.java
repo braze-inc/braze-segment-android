@@ -11,7 +11,6 @@ import com.braze.events.BrazeNetworkFailureEvent;
 import com.braze.events.BrazePushEvent;
 import com.braze.events.BrazeSdkAuthenticationErrorEvent;
 import com.braze.events.FeatureFlagsUpdatedEvent;
-import com.braze.events.FeedUpdatedEvent;
 import com.braze.events.IEventSubscriber;
 import com.braze.events.IValueCallback;
 import com.braze.events.NoMatchingTriggerEvent;
@@ -92,38 +91,12 @@ public class MockBraze implements IBraze {
   }
 
   @Override
-  public void logFeedDisplayed() {
-
-  }
-
-  @Override
-  @SuppressWarnings("deprecation")
-  public void requestContentCardsRefresh(boolean b) {
-
-  }
-
-  @Override
-  public void requestFeedRefresh() {
-
-  }
-
-  @Override
-  public void requestFeedRefreshFromCache() {
-
-  }
-
-  @Override
   public void requestImmediateDataFlush() {
 
   }
 
   @Override
   public void subscribeToContentCardsUpdates(IEventSubscriber<ContentCardsUpdatedEvent> iEventSubscriber) {
-
-  }
-
-  @Override
-  public void subscribeToFeedUpdates(IEventSubscriber<FeedUpdatedEvent> iEventSubscriber) {
 
   }
 
@@ -179,12 +152,6 @@ public class MockBraze implements IBraze {
 
   @Override
   public String getRegisteredPushToken() {
-    return null;
-  }
-
-  @Override
-  @SuppressWarnings("deprecation")
-  public String getInstallTrackingId() {
     return null;
   }
 
@@ -257,18 +224,6 @@ public class MockBraze implements IBraze {
 
   @Override
   public void getDeviceIdAsync(IValueCallback<String> iValueCallback) {}
-
-  @SuppressWarnings("deprecation")
-  @Override
-  public void logFeedCardImpression(String s) {
-
-  }
-
-  @SuppressWarnings("deprecation")
-  @Override
-  public void logFeedCardClick(String s) {
-
-  }
 
   @Override
   public void setSdkAuthenticationSignature(@NonNull String s) {

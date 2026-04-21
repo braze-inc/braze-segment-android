@@ -16,8 +16,8 @@ class MainApplication : Application() {
         MainApplication::class.java.name
     )
     private val WRITE_KEY = "YOUR_WRITE_KEY";
-    private val APPBOY_KEY = "Appboy"
-    var sAppboySegmentEnabled = false
+    private val BRAZE_KEY = "Appboy"
+    var sBrazeSegmentEnabled = false
 
     override fun onCreate() {
         super.onCreate()
@@ -27,9 +27,9 @@ class MainApplication : Application() {
         builder.logLevel(Analytics.LogLevel.VERBOSE)
         Analytics.setSingletonInstance(builder.build())
 
-        Analytics.with(this).onIntegrationReady(APPBOY_KEY,  Analytics.Callback<Braze> {
+        Analytics.with(this).onIntegrationReady(BRAZE_KEY,  Analytics.Callback<Braze> {
             Log.i(TAG, "analytics.onIntegrationReady() called")
-            sAppboySegmentEnabled = true
+            sBrazeSegmentEnabled = true
         })
 
     }

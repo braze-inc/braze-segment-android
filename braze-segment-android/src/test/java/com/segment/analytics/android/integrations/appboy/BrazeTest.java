@@ -82,7 +82,7 @@ public class BrazeTest {
     Activity activity = mock(Activity.class);
     mIntegration.onActivityStarted(activity);
     verify(mBraze).openSession(activity);
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -90,13 +90,13 @@ public class BrazeTest {
     Activity activity = mock(Activity.class);
     mIntegration.onActivityStopped(activity);
     verify(mBraze).closeSession(activity);
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
   public void testIdentifyCallsChangeUser() {
     // The userId is stripped because Android's TextUtils is returning
-    // a default length of 0.  Ported test to AppboyAndroidTest.java.
+    // a default length of 0.  Ported test to BrazeAndroidTest.java.
   }
 
   @Test
@@ -231,7 +231,7 @@ public class BrazeTest {
     // uses an Android method that returns a default value.
     // TODO - update tests once we've got a workaround.
     verify(mBraze).logCustomEvent("myEvent");
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -242,7 +242,7 @@ public class BrazeTest {
     mIntegration.track(trackPayload);
     verify(mBraze, Mockito.never()).logPurchase("c", "USD", new BigDecimal("10.0"));
     verify(mBraze).logCustomEvent(Mockito.eq("nonRevenueEvent"), Mockito.any(BrazeProperties.class));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -250,7 +250,7 @@ public class BrazeTest {
     TrackPayload trackPayload = getBasicTrackPayloadWithEventAndProps("Order Completed", null);
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase("Order Completed", "USD", new BigDecimal("0.0"));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -258,7 +258,7 @@ public class BrazeTest {
     TrackPayload trackPayload = getBasicTrackPayloadWithEventAndProps("Completed Order", null);
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase("Completed Order", "USD", new BigDecimal("0.0"));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -268,7 +268,7 @@ public class BrazeTest {
     TrackPayload trackPayload = getBasicTrackPayloadWithEventAndProps("revenueEvent", purchaseProperties);
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase("revenueEvent", "USD", new BigDecimal("10.0"));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -279,7 +279,7 @@ public class BrazeTest {
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase(Mockito.eq("id1"), Mockito.eq("USD"), Mockito.eq(new BigDecimal("10.0")), Mockito.any(BrazeProperties.class));
     verify(mBraze).logPurchase(Mockito.eq("id2"), Mockito.eq("USD"), Mockito.eq(new BigDecimal("12.0")), Mockito.any(BrazeProperties.class));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -290,7 +290,7 @@ public class BrazeTest {
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase(Mockito.eq("id1"), Mockito.eq("USD"), Mockito.eq(new BigDecimal("10.0")), Mockito.any(BrazeProperties.class));
     verify(mBraze).logPurchase(Mockito.eq("id2"), Mockito.eq("USD"), Mockito.eq(new BigDecimal("12.0")), Mockito.any(BrazeProperties.class));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -302,7 +302,7 @@ public class BrazeTest {
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase(Mockito.eq("id1"), Mockito.eq("USD"), Mockito.eq(new BigDecimal("10.0")), Mockito.any(BrazeProperties.class));
     verify(mBraze).logPurchase(Mockito.eq("id2"), Mockito.eq("USD"), Mockito.eq(new BigDecimal("12.0")), Mockito.any(BrazeProperties.class));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -312,7 +312,7 @@ public class BrazeTest {
     TrackPayload trackPayload = getBasicTrackPayloadWithEventAndProps("Order Completed", purchaseProperties);
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase("Order Completed", "JPY", new BigDecimal("0.0"));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -322,7 +322,7 @@ public class BrazeTest {
     TrackPayload trackPayload = getBasicTrackPayloadWithEventAndProps("Completed Order", purchaseProperties);
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase("Completed Order", "JPY", new BigDecimal("0.0"));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -333,26 +333,26 @@ public class BrazeTest {
     TrackPayload trackPayload = getBasicTrackPayloadWithEventAndProps("revenueEvent", purchaseProperties);
     mIntegration.track(trackPayload);
     verify(mBraze).logPurchase("revenueEvent", "JPY", new BigDecimal("10.0"));
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
-  public void testScreenDoesNotCallAppboy() {
+  public void testScreenDoesNotCallBraze() {
     mIntegration.screen(new ScreenPayload.Builder().userId("userId").name("foo").build());
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
   public void testFlushCallsRequestImmediateDataFlushOnce() {
     mIntegration.flush();
     verify(mBraze).requestImmediateDataFlush();
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
-  public void testResetHasNoInteractionWithAppboy() {
+  public void testResetHasNoInteractionWithBraze() {
     mIntegration.reset();
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -362,7 +362,7 @@ public class BrazeTest {
     final BigDecimal price = new BigDecimal("1.00");
     mIntegration.logPurchaseForSingleItem(productId, currencyCode, price, null);
     verify(mBraze).logPurchase(productId, currencyCode, price);
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
   @Test
@@ -372,10 +372,10 @@ public class BrazeTest {
     final BigDecimal price = new BigDecimal("1.00");
     mIntegration.logPurchaseForSingleItem(productId, currencyCode, price, new JSONObject());
     verify(mBraze).logPurchase(productId, currencyCode, price);
-    verifyNoMoreAppboyInteractions();
+    verifyNoMoreBrazeInteractions();
   }
 
-  private void verifyNoMoreAppboyInteractions() {
+  private void verifyNoMoreBrazeInteractions() {
     verifyNoMoreInteractions(mBraze);
   }
 

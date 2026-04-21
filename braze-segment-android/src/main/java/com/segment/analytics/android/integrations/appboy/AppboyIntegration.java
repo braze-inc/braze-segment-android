@@ -257,7 +257,7 @@ public class AppboyIntegration extends Integration<Braze> {
   @Override
   public void flush() {
     super.flush();
-    mLogger.verbose("Calling appboy.requestImmediateDataFlush().");
+    mLogger.verbose("Calling Braze.requestImmediateDataFlush().");
     getInternalInstance().requestImmediateDataFlush();
   }
 
@@ -303,10 +303,10 @@ public class AppboyIntegration extends Integration<Braze> {
       }
     } else {
       if (propertiesJson == null || propertiesJson.length() == 0) {
-        mLogger.verbose("Calling appboy.logCustomEvent for event %s", event);
+        mLogger.verbose("Calling Braze.logCustomEvent for event %s", event);
         getInternalInstance().logCustomEvent(event);
       } else {
-        mLogger.verbose("Calling appboy.logCustomEvent for event %s with properties %s.",
+        mLogger.verbose("Calling Braze.logCustomEvent for event %s with properties %s.",
           event, propertiesJson.toString());
         getInternalInstance().logCustomEvent(event, new BrazeProperties(propertiesJson));
       }
@@ -347,11 +347,11 @@ public class AppboyIntegration extends Integration<Braze> {
                                         BigDecimal price,
                                         @Nullable JSONObject propertiesJson) {
     if (propertiesJson == null || propertiesJson.length() == 0) {
-      mLogger.verbose("Calling appboy.logPurchase for purchase %s for %.02f %s with no"
+      mLogger.verbose("Calling Braze.logPurchase for purchase %s for %.02f %s with no"
           + " properties.", productId, price, currencyCode);
       getInternalInstance().logPurchase(productId, currencyCode, price);
     } else {
-      mLogger.verbose("Calling appboy.logPurchase for purchase %s for %.02f %s with properties"
+      mLogger.verbose("Calling Braze.logPurchase for purchase %s for %.02f %s with properties"
           + " %s.", productId, price, currencyCode, propertiesJson.toString());
       getInternalInstance().logPurchase(productId, currencyCode, price, new BrazeProperties(propertiesJson));
     }

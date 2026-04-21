@@ -1,4 +1,22 @@
+## 17.0.0
+
+> [!IMPORTANT]
+> This is the final release of the Braze Segment Android plugin, since it uses [Analytics-Android](https://github.com/segmentio/analytics-android/blob/master/README.md), which has reached end-of-support as of March 2026. We recommend that Braze customers migrate to using the [Braze Segment Kotlin plugin](https://github.com/braze-inc/braze-segment-kotlin), which uses the newer [Analytics-Kotlin](https://github.com/segmentio/analytics-kotlin).
+
+##### Breaking
+- Updated Braze Android SDK [from 28.0.0 to 42.1.0](https://github.com/braze-inc/braze-android-sdk/compare/v28.0.0...v42.1.0).
+- Removed News Feed.
+  - Removed `logFeedDisplayed()`, `requestFeedRefresh()`, `requestFeedRefreshFromCache()`, `subscribeToFeedUpdates(subscriber)`, `logFeedCardImpression(cardId)`, `logFeedCardClick(cardId)`.
+- Updated Analytics-Android [from 4.3.1 to 4.11.3](https://github.com/segmentio/analytics-android/compare/4.3.1...4.11.3).
+- Updated the source and target build compatibility from Java 8 to Java 11.
+
+##### Added
+- Added the ability to conditionally import `com.braze:android-sdk-location` by setting `importBrazeLocationLibrary=true` in your `gradle.properties`. This removes the need to explicitly add the location dependency in your `build.gradle`.
+- Added support for Android 17 (API 37).
+
 ## 16.0.0
+
+##### Breaking
 - Updated to [Braze Android SDK 28.0.0](https://github.com/braze-inc/braze-android-sdk/blob/master/CHANGELOG.md#2800).
 - minSdk is now "21".
 - This SDK is now hosted in Maven Central. 
