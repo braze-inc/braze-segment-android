@@ -5,14 +5,18 @@ plugins {
 }
 
 
+def shouldImportBrazeLocationLibrary() {
+    return project.hasProperty("importBrazeLocationLibrary") && project.importBrazeLocationLibrary == "true"
+}
+
 android {
     namespace 'com.segment.analytics.android.integrations.appboy'
-    compileSdk 33
+    compileSdk 37
 
     defaultConfig {
         multiDexEnabled = true
         minSdk 21
-        targetSdk 33
+        targetSdk 37
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -25,16 +29,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 }
 
 dependencies {
     implementation "com.braze:android-sdk-ui:$BRAZE_SDK_VERSION"
+    if (shouldImportBrazeLocationLibrary()) {
+        api "com.braze:android-sdk-location:$BRAZE_SDK_VERSION"
+    }
     implementation "com.segment.analytics.android:analytics:$SEGMENT_SDK_VERSION"
     implementation "androidx.core:core-ktx:$ANDROIDX_CORE_KTX_VERSION"
     implementation "androidx.appcompat:appcompat:$APPCOMPAT_VERSION"
@@ -44,8 +51,8 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:$MOCKITO_VERSION"
 
     testImplementation "org.robolectric:robolectric:$ROBOELECTRIC_VERSION"
-    testImplementation "com.segment.analytics.android:analytics-tests:$SEGMENT_SDK_VERSION"
+    testImplementation "com.segment.analytics.android:analytics-tests:$SEGMENT_ANALYTICS_TESTS_VERSION"
     androidTestImplementation "androidx.test.ext:junit:$ANDROIDX_JUNIT_VERSION"
     androidTestImplementation "androidx.test.espresso:espresso-core:$ANDROIDX_ESPRESSO_VERSION"
-    androidTestImplementation "com.segment.analytics.android:analytics-tests:$SEGMENT_SDK_VERSION"
+    androidTestImplementation "com.segment.analytics.android:analytics-tests:$SEGMENT_ANALYTICS_TESTS_VERSION"
 }
